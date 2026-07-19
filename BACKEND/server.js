@@ -17,7 +17,7 @@ const app = express();
 
 // ── CORS ──────────────────────────────────────────────────────────────────────
 const corsOptions = {
-    origin: process.env.CORS_ORIGIN || "*",
+    origin: process.env.CORS_ORIGIN || "https://job-portal-frontend-7131.onrender.com",
     credentail: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
