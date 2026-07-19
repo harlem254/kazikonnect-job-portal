@@ -22,7 +22,8 @@ const corsOptions = {
     allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+// Note: app.options("*", ...) is NOT needed — app.use(cors()) handles
+// preflight OPTIONS requests automatically across all routes.
 
 // ── Body parser ───────────────────────────────────────────────────────────────
 app.use(express.json());
