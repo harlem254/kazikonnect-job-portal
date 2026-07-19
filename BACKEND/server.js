@@ -18,6 +18,7 @@ const app = express();
 // ── CORS ──────────────────────────────────────────────────────────────────────
 const corsOptions = {
     origin: process.env.CORS_ORIGIN || "*",
+    credentail: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
 };
