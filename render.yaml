@@ -37,7 +37,7 @@ services:
     runtime: static
     rootDir: FRONTEND
     buildCommand: npm install && npm run build
-    staticPublishPath: ./FRONTEND/dist
+    staticPublishPath: ./dist
     envVars:
       - key: NODE_VERSION
         value: "22"

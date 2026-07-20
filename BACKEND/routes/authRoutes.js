@@ -19,11 +19,15 @@ router.post("/upload-image", upload.single("image"), async (req, res) => {
 
         // Generate unique filename and upload to Supabase
         const fileName = upload.generateUniqueFileName(req.file.originalname);
+        console.log("Generated filename:", fileName);
+        
         const imageUrl = await uploadImageToSupabase(
             req.file.buffer,
             fileName,
             req.file.mimetype
         );
+        
+        console.log("Supabase returned imageUrl:", imageUrl);
 
         res.status(200).json({ imageUrl });
     } catch (error) {

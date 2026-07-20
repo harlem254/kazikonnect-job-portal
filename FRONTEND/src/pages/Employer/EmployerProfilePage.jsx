@@ -62,7 +62,11 @@ const EmployerProfilePage = () => {
         avatar:    avatarUrl,
         companyLogo: logoUrl,
       });
-      updateUser(data);
+
+      // Fetch fresh data from database to ensure sync
+      const { data: freshData } = await axiosInstance.get(API.GET_ME);
+      updateUser(freshData);
+
       setAvatarFile(null); setAvatarPreview(null);
       setLogoFile(null);   setLogoPreview(null);
       toast.success("Profile updated successfully!");

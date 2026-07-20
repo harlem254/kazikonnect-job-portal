@@ -54,6 +54,7 @@ const UserProfile = () => {
         setUploadingAvatar(true);
         try {
           avatarUrl = await uploadImage(avatarFile);
+          console.log("Upload returned URL:", avatarUrl);
         } catch {
           toast.error("Avatar upload failed — saving without new photo");
         } finally {
@@ -61,17 +62,24 @@ const UserProfile = () => {
         }
       }
 
+      console.log("Sending to UPDATE_PROFILE:", { name: form.name, avatar: avatarUrl, resume: form.resume });
       const { data } = await axiosInstance.put(API.UPDATE_PROFILE, {
         name:   form.name,
         avatar: avatarUrl,
         resume: form.resume,
       });
+      console.log("UPDATE_PROFILE response:", data);
 
-      updateUser(data);
+      // Fetch fresh data from database to ensure sync
+      const { data: freshData } = await axiosInstance.get(API.GET_ME);
+      console.log("GET_ME fresh data:", freshData);
+      updateUser(freshData);
+      
       setAvatarFile(null);
       setAvatarPreview(null);
       toast.success("Profile updated successfully!");
     } catch (err) {
+      console.error("Profile update error:", err);
       toast.error(err.response?.data?.message || "Failed to update profile");
     } finally {
       setSaving(false);
@@ -80,6 +88,10 @@ const UserProfile = () => {
 
   const displayAvatar = avatarPreview || getSupabaseImageUrl(user?.avatar);
   const isSubmitting  = saving || uploadingAvatar;
+
+  // Debug: log what's being displayed
+  console.log("Current user avatar from state:", user?.avatar);
+  console.log("Display avatar (after getSupabaseImageUrl):", displayAvatar);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors">
