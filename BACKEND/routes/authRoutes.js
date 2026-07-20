@@ -1,7 +1,8 @@
 const express = require("express");
 const { register, login, getMe } = require("../controllers/authController");
 const { protect } = require("../middlewares/authMiddleware");
-const upload = require("../middlewares/uploadMiddleware"); // Added to handle file uploads
+const upload = require("../middlewares/uploadMiddleware");
+const { uploadImageToSupabase } = require("../config/storage");
 
 const router = express.Router();
 
@@ -10,13 +11,28 @@ router.post("/login", login);
 router.get("/me", protect, getMe);
 
 // Route for handling image uploads (Avatar / Company Logo)
-router.post("/upload-image", upload.single("image"), (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({ message: "No file uploaded" });
+router.post("/upload-image", upload.single("image"), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: "No file uploaded" });
+        }
+
+        // Generate unique filename and upload to Supabase
+        const fileName = upload.generateUniqueFileName(req.file.originalname);
+        const imageUrl = await uploadImageToSupabase(
+            req.file.buffer,
+            fileName,
+            req.file.mimetype
+        );
+
+        res.status(200).json({ imageUrl });
+    } catch (error) {
+        console.error("Image upload error:", error);
+        res.status(500).json({ 
+            message: "Failed to upload image",
+            error: error.message 
+        });
     }
-    
-    const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
-    res.status(200).json({ imageUrl });
 });
 
 module.exports = router;

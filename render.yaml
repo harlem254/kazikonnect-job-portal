@@ -21,6 +21,8 @@ services:
         sync: false
       - key: SUPABASE_SERVICE_ROLE_KEY
         sync: false
+      - key: MONGO_URI
+        sync: false
       - key: CORS_ORIGIN
         fromService:
           name: job-portal-frontend

@@ -53,9 +53,6 @@ app.use("/api/users",        userRoutes);
 app.use("/api/saved-jobs",   savedJobRoutes);
 app.use("/api/analytics",    analyticsRoutes);
 
-// ── Static uploads ────────────────────────────────────────────────────────────
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
 // ── Health check ──────────────────────────────────────────────────────────────
 app.get("/api/health", (_req, res) => res.json({ status: "ok", db: "supabase" }));
 
