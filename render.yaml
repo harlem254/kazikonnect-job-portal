@@ -26,6 +26,8 @@ services:
           name: job-portal-frontend
           type: web
           envVarKey: RENDER_EXTERNAL_URL
+      # Optional: comma-separate multiple origins for previews, e.g.
+      # https://job-portal-frontend.onrender.com,https://job-portal-frontend-pr-1.onrender.com
 
   # ── Frontend (Vite + React static site) ─────────────────────────────────────
   - type: web

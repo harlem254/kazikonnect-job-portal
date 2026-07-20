@@ -16,15 +16,31 @@ const analyticsRoutes   = require("./routes/analyticsRoutes.js");
 const app = express();
 
 // ── CORS ──────────────────────────────────────────────────────────────────────
+// With credentials: true, origin cannot be "*" — it must match the request Origin exactly.
+const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:5173")
+    .split(",")
+    .map((origin) => origin.trim().replace(/\/$/, ""))
+    .filter(Boolean);
+
 const corsOptions = {
-    origin: process.env.CORS_ORIGIN || "https://job-portal-frontend-7131.onrender.com",
-    credentail: true,
+    origin(origin, callback) {
+        // Non-browser clients (curl, health checks) send no Origin header
+        if (!origin) return callback(null, true);
+
+        const normalizedOrigin = origin.replace(/\/$/, "");
+        if (allowedOrigins.includes(normalizedOrigin)) {
+            return callback(null, true);
+        }
+
+        console.warn(`CORS blocked request from origin: ${origin}`);
+        callback(null, false);
+    },
+    credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
 };
+
 app.use(cors(corsOptions));
-// Note: app.options("*", ...) is NOT needed — app.use(cors()) handles
-// preflight OPTIONS requests automatically across all routes.
 
 // ── Body parser ───────────────────────────────────────────────────────────────
 app.use(express.json());
