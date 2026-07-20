@@ -26,6 +26,8 @@ const UserProfile = () => {
   const [saving,          setSaving]          = useState(false);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
+  const isSubmitting = saving || uploadingAvatar;
+
   if (!isAuthenticated) {
     navigate("/login");
     return null;
