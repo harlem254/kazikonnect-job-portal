@@ -20,7 +20,12 @@ export const formatSalary = (min, max, currency = "KSh") => {
 export const timeAgo = (date) => {
   const now = new Date();
   const then = new Date(date);
-  const diffMs = now - then;
+  
+  // Normalize both dates to UTC to avoid timezone issues
+  const nowUtc = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+  const thenUtc = Date.UTC(then.getUTCFullYear(), then.getUTCMonth(), then.getUTCDate());
+  
+  const diffMs = nowUtc - thenUtc;
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
   if (diffDays === 0) return "Today";
