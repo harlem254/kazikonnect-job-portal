@@ -11,6 +11,7 @@ import axiosInstance from "../../utils/axioInstance";
 import API from "../../utils/ApiPath";
 import { useAuth } from "../../Context/AuthContext";
 import { timeAgo, formatDate, getInitials } from "../../utils/Helper";
+import { getSupabaseImageUrl } from "../../utils/supabase";
 import EmployerNav from "../../components/EmployerNav";
 import toast from "react-hot-toast";
 
@@ -78,7 +79,7 @@ const ApplicantDrawer = ({ app, onClose, onStatusChange, updatingId }) => {
                 <div className="flex items-start gap-4">
                   <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center shrink-0 overflow-hidden border-2 border-white/30">
                     {applicant.avatar ? (
-                      <img src={applicant.avatar} alt="" className="w-full h-full object-cover" />
+                      <img src={getSupabaseImageUrl(applicant.avatar)} alt="" className="w-full h-full object-cover" />
                     ) : (
                       <span className="text-white text-xl font-bold">{getInitials(applicant.name)}</span>
                     )}
@@ -440,7 +441,7 @@ const ApplicationViewer = () => {
                   {/* Avatar */}
                   <div className="w-11 h-11 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center shrink-0 overflow-hidden border-2 border-white shadow-sm">
                     {app.applicant?.avatar ? (
-                      <img src={app.applicant.avatar} alt="" className="w-full h-full object-cover" />
+                      <img src={getSupabaseImageUrl(app.applicant.avatar)} alt="" className="w-full h-full object-cover" />
                     ) : (
                       <span className="text-white text-xs font-bold">{getInitials(app.applicant?.name)}</span>
                     )}

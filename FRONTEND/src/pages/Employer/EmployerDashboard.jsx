@@ -10,6 +10,7 @@ import axiosInstance from "../../utils/axioInstance";
 import API from "../../utils/ApiPath";
 import { useAuth } from "../../Context/AuthContext";
 import { timeAgo, getInitials } from "../../utils/Helper";
+import { getSupabaseImageUrl } from "../../utils/supabase";
 import EmployerNav from "../../components/EmployerNav";
 import toast from "react-hot-toast";
 
@@ -161,7 +162,7 @@ const EmployerDashboard = () => {
                       <div key={app._id} className="flex items-center gap-3 py-2 border-b border-gray-50 dark:border-slate-700 last:border-0">
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center shrink-0 overflow-hidden">
                           {app.applicant?.avatar
-                            ? <img src={app.applicant.avatar} alt="" className="w-full h-full object-cover" />
+                            ? <img src={getSupabaseImageUrl(app.applicant.avatar)} alt="" className="w-full h-full object-cover" />
                             : <span className="text-white text-xs font-bold">{getInitials(app.applicant?.name)}</span>
                           }
                         </div>

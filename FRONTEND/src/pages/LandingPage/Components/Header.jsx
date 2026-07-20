@@ -4,6 +4,7 @@ import { Briefcase, LogOut, LayoutDashboard } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../../Context/AuthContext";
 import { getInitials } from "../../../utils/Helper";
+import { getSupabaseImageUrl } from "../../../utils/supabase";
 
 const Header = () => {
   const { isAuthenticated, user, logout } = useAuth();
@@ -50,7 +51,7 @@ const Header = () => {
                 {/* Avatar */}
                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center overflow-hidden">
                   {user?.avatar ? (
-                    <img src={user.avatar} alt="" className="w-full h-full object-cover" />
+                    <img src={getSupabaseImageUrl(user.avatar)} alt="" className="w-full h-full object-cover" />
                   ) : (
                     <span className="text-white text-xs font-bold">{getInitials(user?.name)}</span>
                   )}

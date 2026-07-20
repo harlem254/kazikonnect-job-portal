@@ -10,6 +10,7 @@ import axiosInstance from "../../utils/axioInstance";
 import API from "../../utils/ApiPath";
 import { useAuth } from "../../Context/AuthContext";
 import { timeAgo, formatDate, getJobTypeStyle, getInitials } from "../../utils/Helper";
+import { getSupabaseImageUrl } from "../../utils/supabase";
 import JobSeekerNav from "../../components/JobSeekerNav";
 import toast from "react-hot-toast";
 
@@ -125,7 +126,7 @@ const ApplicationCard = ({ app }) => {
           <div className="flex items-start gap-3 min-w-0">
             <div className="w-11 h-11 rounded-xl bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 flex items-center justify-center shrink-0 overflow-hidden">
               {company.companyLogo ? (
-                <img src={company.companyLogo} alt="" className="w-full h-full object-contain p-0.5" />
+                <img src={getSupabaseImageUrl(company.companyLogo)} alt="" className="w-full h-full object-contain p-0.5" />
               ) : (
                 <span className="text-xs font-bold text-gray-400 dark:text-slate-500">
                   {getInitials(company.companyName || company.name || "Co")}

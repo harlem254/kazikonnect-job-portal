@@ -9,6 +9,7 @@ import axiosInstance from "../../utils/axioInstance";
 import API from "../../utils/ApiPath";
 import { useAuth } from "../../Context/AuthContext";
 import { formatSalary, timeAgo, getJobTypeStyle } from "../../utils/Helper";
+import { getSupabaseImageUrl } from "../../utils/supabase";
 import JobSeekerNav from "../../components/JobSeekerNav";
 import toast from "react-hot-toast";
 
@@ -118,7 +119,7 @@ const SavedJobs = () => {
                       >
                         <div className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-slate-700 flex items-center justify-center shrink-0 overflow-hidden border border-gray-200 dark:border-slate-600">
                           {job.company?.companyLogo ? (
-                            <img src={job.company.companyLogo} alt="" className="w-full h-full object-cover" />
+                            <img src={getSupabaseImageUrl(job.company.companyLogo)} alt="" className="w-full h-full object-cover" />
                           ) : (
                             <Building2 className="w-5 h-5 text-gray-400 dark:text-slate-500" />
                           )}

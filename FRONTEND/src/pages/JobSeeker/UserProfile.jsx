@@ -10,6 +10,7 @@ import API from "../../utils/ApiPath";
 import { useAuth } from "../../Context/AuthContext";
 import uploadImage from "../../utils/uploadImage";
 import { getInitials } from "../../utils/Helper";
+import { getSupabaseImageUrl } from "../../utils/supabase";
 import JobSeekerNav from "../../components/JobSeekerNav";
 import toast from "react-hot-toast";
 
@@ -77,7 +78,7 @@ const UserProfile = () => {
     }
   };
 
-  const displayAvatar = avatarPreview || user?.avatar;
+  const displayAvatar = avatarPreview || getSupabaseImageUrl(user?.avatar);
   const isSubmitting  = saving || uploadingAvatar;
 
   return (

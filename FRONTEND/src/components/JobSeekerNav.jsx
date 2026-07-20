@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "../Context/AuthContext";
 import { getInitials } from "../utils/Helper";
+import { getSupabaseImageUrl } from "../utils/supabase";
 
 // ─── Nav items definition ─────────────────────────────────────────────────────
 const NAV_ITEMS = [
@@ -165,7 +166,7 @@ const JobSeekerNav = ({ currentTab }) => {
           >
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center overflow-hidden shrink-0">
               {user?.avatar
-                ? <img src={user.avatar} alt="" className="w-full h-full object-cover" />
+                ? <img src={getSupabaseImageUrl(user.avatar)} alt="" className="w-full h-full object-cover" />
                 : <span className="text-white text-[11px] font-bold">{getInitials(user?.name)}</span>
               }
             </div>

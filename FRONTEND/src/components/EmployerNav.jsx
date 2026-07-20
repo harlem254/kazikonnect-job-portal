@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "../Context/AuthContext";
 import { getInitials } from "../utils/Helper";
+import { getSupabaseImageUrl } from "../utils/supabase";
 
 const NAV_ITEMS = [
   { label: "Dashboard",       icon: LayoutDashboard, path: "/employer-dashboard", tab: "dashboard"  },
@@ -104,7 +105,7 @@ const EmployerNav = ({ currentTab }) => {
           <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-600
             flex items-center justify-center overflow-hidden shrink-0">
             {user?.avatar
-              ? <img src={user.avatar} alt="" className="w-full h-full object-cover" />
+              ? <img src={getSupabaseImageUrl(user.avatar)} alt="" className="w-full h-full object-cover" />
               : <span className="text-white text-sm font-bold">{getInitials(user?.name)}</span>
             }
           </div>

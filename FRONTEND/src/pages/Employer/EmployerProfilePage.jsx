@@ -9,6 +9,7 @@ import API from "../../utils/ApiPath";
 import { useAuth } from "../../Context/AuthContext";
 import uploadImage from "../../utils/uploadImage";
 import { getInitials } from "../../utils/Helper";
+import { getSupabaseImageUrl } from "../../utils/supabase";
 import EmployerNav from "../../components/EmployerNav";
 import toast from "react-hot-toast";
 
@@ -72,8 +73,8 @@ const EmployerProfilePage = () => {
     }
   };
 
-  const displayAvatar = avatarPreview || user?.avatar;
-  const displayLogo   = logoPreview   || user?.companyLogo;
+  const displayAvatar = avatarPreview || getSupabaseImageUrl(user?.avatar);
+  const displayLogo   = logoPreview   || getSupabaseImageUrl(user?.companyLogo);
 
   const card = "bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700";
   const inputCls = "w-full px-3 py-2.5 text-sm text-gray-900 dark:text-slate-100 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-xl outline-none focus:border-blue-500 dark:focus:border-blue-400 transition-colors";
